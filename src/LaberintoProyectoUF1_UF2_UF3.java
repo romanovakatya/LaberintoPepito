@@ -17,7 +17,7 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 	public static String [] menuPrincipal = {
 			"\nMenu principal:"
 			,"J. Jugar partida"
-			,"R. Resultados de partidas"
+			,"R. Resultados de las partidas"
 			,"Q. Salir"
 	};
 	public static String [] menuNiveles = {
