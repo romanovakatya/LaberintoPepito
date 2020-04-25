@@ -1,0 +1,73 @@
+	Laberinto de Pepito
+Proponemos el desarrollo de un juego como proyecto que realizarás en grupos de dos alumnos.
+El Pepito es el personaje del juego, y debe pasar por un laberinto en el que hay paredes 
+y una sola salida. A continuación especificamos las características del problema.
+El juego debe ser modular, con métodos y funciones, y que pueda ser utilizado por cualquier laberinto.
+Pasos a seguir:
+1. Lea el problema (Especificaciones del juego, Entrega)
+2. Piense sobre el problema y sugerir ideas en grupo (Brainstorming)
+3. Organice la información
+4. Elaboración del plan de trabajo
+5. Buscar información individualmente
+6. Poner la información en común para verificarla
+7. Desarrolle el juego en lenguaje Java
+8. Pruebe el juego de pruebas y modifique lo si es necesario
+9. Formular propuestas de mejora
+
+Informe: Se puede ir elaborando a medida que vaya tomando decisiones.
+
+Especificaciones del juego
+- El juego tendrá un menú con las siguientes opciones:
+
+Jugar partida: Cuando se entre a esta opción el jugador podrá elegir el nivel de dificultad, 
+como mínimo habrá 3 niveles de dificultad y cuando la haya elegido comenzará la partida.
+
+Resultados partidas: Mostrar resultados de las partidas jugadas hasta entonces. Dentro de esta 
+opción se deberá dejar elegir al usuario si los quiere mostrar por niveles o por orden de ejecución.
+
+Salir: Se acabará el juego cuando se pulse la letra 'q' y antes de terminar se le deberá mostrar 
+un mensaje al usuario de que se ha terminado.
+
+- El laberinto será una matriz. Como habrá varios niveles, para cada nivel superior el mostrador 
+deberá ser más grande y deberéis decidir el tamaño y el formato del laberinto.
+
+Cargar los diferentes laberintos desde un archivo llamado "laberints.txt"
+
+- Dentro del laberinto hay unas posiciones ocupadas que harán de pared. Para cada nivel debe decidir 
+qué posiciones están ocupadas por pared.
+
+- El Pepito tiene que salir de la primera posición posible del laberinto, por ejemplo: [0] [0].
+- El Pepito utiliza el teclado para moverse:
+w: subir
+s: bajar
+a: izquierda
+d: derecha
+
+- Decidir cuántas partidas como máximo para el jugador dentro de la misma ejecución del juego. Habrá 
+que tener en cuenta para guardar los resultados.
+
+- FIN partida: (uno de los dos casos)
+Si el Pepito llega al final del laberinto (casilla marcada como final de alguna manera),
+Usuario pulsa la letra 'q'.
+- Cuando acabe cada partida se debe guardar el nivel en que estaba jugando el usuario y también debería 
+guardarse si ha conseguido salir del laberinto o bien ha dejado la partida sin finalizar.
+
+Opcional: Se pueden guardar el número de casillas que ha recorrido el usuario para hacer el laberinto 
+durante la partida y mostrarlos también en el apartado de resultados.
+
+Opcional: guardar resultados en un archivo.txt
+
+- Fin juego: el usuario pulsa la letra 'q'.
+
+Entrega
+Se pide la entrega de un archivo.zip con el siguiente contenido:
+- Archivo código fuente con comentarios.
+- Informe (documento .pdf) con:
+El esquema principal del juego
+Explicación de decisiones de diseño tomadas
+Juego de pruebas (casos normales y extremos)
+Para cada prueba indicar: Título de cada caso, explicación (datos que se introducen y qué sucede), 
+impresión de pantalla, posibles mejoras.
+Propuestas de mejora (cosas que harías para mejorar tu laberinto)
+
+
