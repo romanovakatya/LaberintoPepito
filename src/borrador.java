@@ -137,20 +137,20 @@ public class borrador {
 			,"J. Jugar partida"
 			,"R. Resultados de partidas"
 			,"Q. Salir"
-			};
+	};
 	public static String [] arrayOpcionesMenuJuego = {
 			"Elige un nivel del juego:"
 			, "1. Fácil"
 			, "2. Medio"
 			, "3. Difícil"
 			, "Q. ATRAS"
-			};
+	};
 	public static String [] arrayOpcionesMenuResultado = {
 			"Demostrar resultados por:"
 			, "1. niveles"
 			, "2. orden de ejecución"
 			, "Q. ATRAS"
-			};
+	};
 	public static String stringDeSalida = "Ha salido de juego";
 	public static String stringErrorDeOpcion = "Elige por favor una de las opciones válidas";
 
@@ -158,7 +158,7 @@ public class borrador {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Scanner teclado = new Scanner(System.in);
-		
+
 		//1. MOSTRAR MENU PRINCIPAL
 		//2. ELECCIÓN DE OPCIÓN
 		//2.1. preguntamos la opción
@@ -182,11 +182,11 @@ public class borrador {
 		}
 		System.out.println(stringDeSalida);
 	}
-	
+
 	//2.2. según la opción elegimos la función.
-			//eleccionDeOpcion();
-			//3. MOSTRAR SUBMENU DE OPCIÓN O SALIR
-			//4. JUGAMOS O MOSTRAMOS LOS RESULTADOS
+	//eleccionDeOpcion();
+	//3. MOSTRAR SUBMENU DE OPCIÓN O SALIR
+	//4. JUGAMOS O MOSTRAMOS LOS RESULTADOS
 	/**
 	 * Función que devuelve la opción elegida del menú
 	 * @param arrayMenu
@@ -209,10 +209,10 @@ public class borrador {
 		switch (opcion) {
 		case "j":
 			return menu(arrayOpcionesMenuJuego);
-			
+
 		case "r":
 			return menu(arrayOpcionesMenuResultado);
-			
+
 		case "q":
 			return stringDeSalida;
 		default:
@@ -230,4 +230,43 @@ public class borrador {
 		}
 	}
 }
+/*desde funcion para mover pepito del documento principal,
+static String[][]pepitoMover(String[][]matriz) throws FileNotFoundException{
+si ha elegido botón s: bajar y una celda adelante es menor que la última posición    
+de matriz y está vacia, muevo alla pepito,
+else if (botones.equalsIgnoreCase("s") && ((i+1) < matriz.length) &&  
+		matriz[i+1][j].equalsIgnoreCase(vacia) || (i+1) < (matriz.length) && matriz[i+1][j].equalsIgnoreCase(finJuego)) {
+	matriz[i+1][j] = pepito;
+	System.out.println("s");
+}
+do {
+	//muestro botones del juego y labirinto con cada paso de pepito,						
+	demostrarMatriz(pepitoMover(matriz[0]));
+	//partida continua hasta que el usuario no elige la opción Q - salir o 
+	//mientras no llegará al final del labirinto ,
+	} while (salidaPepito && !botones.equalsIgnoreCase("q"));
+	
+	//partida continua hasta que el usuario no elige opción Q - salir o no llega al final
+					//del labirinto,
+					/*do {
+						//muestro botones del juego y labirinto con cada paso de pepito,
+						demostrarMatriz(pepitoMover(matriz[1]));
+					} while (!botones.equalsIgnoreCase("q"));
+					//acabando la partida muestro el menu principal,
+					System.out.println("Ha salido de partida");
+					menu = generarMenu(menuPrincipal);
+					
+partida continua hasta que el usuario no elige opción Q - salir o no llega al final
+del labirinto,
+do {
+	//muestro botones del juego,
+	botones = generarMenu(menuBotonesJuego);
+	//y labirinto con cada paso de pepito,
+	demostrarMatriz(pepitoMover(matriz[2]));
+	} while (!botones.equalsIgnoreCase("q"));
+	//acabando la partida muestro el menu principal,
+	System.out.println("Ha salido de partida");
+	menu = generarMenu(menuPrincipal);
+	
+	*/
 
