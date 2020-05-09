@@ -44,8 +44,8 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 	public static boolean salidaPepito = true; //variable para acabar el juego,cuando pepito llega al final,
 	public static String [] nivelesDePartidasJugadas = new String [5]; //para guardar niveles de partidas jugadas,
 	public static String nivelesDePartidas;
-	public static String [] finDePartidasJugadas = new String [5]; // para guardar el resultado de la partida,	
-	public static String finDePartida;
+	public static String [] resultadoDePartidasJugadas = new String [5]; // para guardar el resultado de la partida,	
+	public static String resultadoDePartida;
 	public static void main(String[] args) throws FileNotFoundException {
 
 		String[][][] matriz;
@@ -90,9 +90,9 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q, 
 
 						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = resultadoDePartidas();
+						nivelesDePartidasJugadas[i] = nivelDePartidas();
 
-						finDePartidasJugadas[i] = finDePartida; //guardo resultado de la partida en un array,
+						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
 
 						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
 
@@ -108,9 +108,9 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
 
 						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = resultadoDePartidas();
+						nivelesDePartidasJugadas[i] = nivelDePartidas();
 
-						finDePartidasJugadas[i] = finDePartida; //guardo resultado de la partida en un array,
+						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
 
 						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
 
@@ -126,9 +126,9 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
 
 						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = resultadoDePartidas();
+						nivelesDePartidasJugadas[i] = nivelDePartidas();
 
-						finDePartidasJugadas[i] = finDePartida; //guardo resultado de la partida en un array,
+						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
 
 						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
 
@@ -159,7 +159,7 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 					//para ver resultados por orden de las partidas,
 					else if (menu.equalsIgnoreCase("2")) {
 						//mostrar resultado como hay utilizando método mostrar resultado,
-						mostrarResultado(nivelesDePartidasJugadas, finDePartidasJugadas);
+						mostrarResultado(nivelesDePartidasJugadas, resultadoDePartidasJugadas);
 						//corregir que muestra intentos quedados,
 					}
 
@@ -356,7 +356,7 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 		{   // muestro un mensaje,			
 			System.out.println("\nHa salido de la partida");
 
-			finDePartida = "no se ha finalizada";
+			resultadoDePartida = "no se ha finalizada"; //resultado de partida para mostrarlo en los resultados,
 
 		}
 		else if (salidaPepito == false) //si el pepito ha llegado al final de laberinto,
@@ -365,12 +365,12 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 			System.out.println("Pepito ha salido del laberinto");
 			System.out.println(" ☻ ___");
 			System.out.println("*------------------------------*");
-
-			finDePartida = "el pepito se ha salido del laberinto";
+					//resultado de partida para mostrarlo en los resultados,			
+			resultadoDePartida = "el pepito se ha salido del laberinto";
 		}
 	}
 	//función para guardar resultado por nivel !!!(no acabada),
-	static String resultadoDePartidas() 
+	static String nivelDePartidas() 
 	{			
 		if (menu.equalsIgnoreCase("1")) {
 
