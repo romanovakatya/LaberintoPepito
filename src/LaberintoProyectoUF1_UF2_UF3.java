@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LaberintoProyectoUF1_UF2_UF3 {
@@ -42,13 +44,17 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 			, "Q. SALIR"
 	};
 	public static boolean salidaPepito = true; //variable para acabar el juego,cuando pepito llega al final,
-	public static String [] nivelesDePartidasJugadas = new String [5]; //para guardar niveles de partidas jugadas,
+	//	public static String [] nivelesDePartidasJugadas = new String [5]; //para guardar niveles de partidas jugadas,
 	public static String nivelesDePartidas;
-	public static String [] resultadoDePartidasJugadas = new String [5]; // para guardar el resultado de la partida,	
+	//	public static String [] resultadoDePartidasJugadas = new String [5]; // para guardar el resultado de la partida,	
 	public static String resultadoDePartida;
+
+	//--------------------------------------------MAIN-----------------------------------------------------
 	public static void main(String[] args) throws FileNotFoundException {
 
 		String[][][] matriz;
+
+		PrintWriter salida = new PrintWriter("resultados.txt");
 
 		//llenamos matriz con el contenido de un documento txt(tres niveles del juego,
 		//utilizando función generarMatriz,
@@ -66,109 +72,119 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 		//mientras jugador quiere jugar(no elige botón "Q"), le muestro menu principal,
 		while (!menu.equalsIgnoreCase("q") || menu.equalsIgnoreCase("j") || menu.equalsIgnoreCase("r")) 
 		{
-			//bucle para guardar resultados de partidas (max 5),
-			for (int i = 0; i < nivelesDePartidasJugadas.length; i++) {
-				if (menu.equalsIgnoreCase("j")) { //si ha elegido j - jugar,
+			if (menu.equalsIgnoreCase("j")) { //si ha elegido j - jugar,
 
-					menu = mostrarMenu(menuNiveles); //creamos y mostramos menu secundario con niveles del juego,
+				menu = mostrarMenu(menuNiveles); //creamos y mostramos menu secundario con niveles del juego,
 
-					//en caso de error muestro mensaje y propuesto elegir la opción correcta,
-					while (!menu.equalsIgnoreCase("3") && !menu.equalsIgnoreCase("2") &&
-							!menu.equalsIgnoreCase("1") && !menu.equalsIgnoreCase("q"))	
-					{
-						System.out.println("Nivel no existe");					
-						menu = mostrarMenu(menuNiveles); //y menu con niveles de dificultad,					
-					}
-
-					//cuando elige la opción 1 se empieza partida de nivel más facil,
-					if (menu.equalsIgnoreCase("1")) 					
-					{										
-						demostrarMatriz(matriz[0]);	//muestro el labirinto inicial,	
-
-						jugarPartida(matriz[0]);//con la función jugarPartida pepito se mueve,
-
-						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q, 
-
-						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = nivelDePartidas();
-
-						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
-
-						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
-
-						menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,														
-					}
-					//cuando elige opción 2 se empieza partida de dificultad media,
-					else if (menu.equalsIgnoreCase("2")) 
-					{
-						demostrarMatriz(matriz[1]); //muestro el labirinto inicial,
-
-						jugarPartida(matriz[1]); //con la función jugarPartida pepito se mueve,
-
-						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
-
-						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = nivelDePartidas();
-
-						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
-
-						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
-
-						menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
-					}
-					//cuando elige opción 3 empieza partida de dificultad alta,
-					else if (menu.equalsIgnoreCase("3")) 
-					{
-						demostrarMatriz(matriz[2]); //muestro el labirinto inicial,
-
-						jugarPartida(matriz[2]); //con la función jugarPartida pepito se mueve,
-
-						finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
-
-						//guardo nivel de la partida en un array,
-						nivelesDePartidasJugadas[i] = nivelDePartidas();
-
-						resultadoDePartidasJugadas[i] = resultadoDePartida; //guardo resultado de la partida en un array,
-
-						matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
-
-						menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,					
-					}
-					else if (menu.equalsIgnoreCase("q")) //botón Q: permite salir al menu principal,
-					{ 
-						menu = mostrarMenu(menuPrincipal);
-					}
+				//en caso de error muestro mensaje y propuesto elegir la opción correcta,
+				while (!menu.equalsIgnoreCase("3") && !menu.equalsIgnoreCase("2") &&
+						!menu.equalsIgnoreCase("1") && !menu.equalsIgnoreCase("q"))	
+				{
+					System.out.println("Nivel no existe");					
+					menu = mostrarMenu(menuNiveles); //y menu con niveles de dificultad,					
 				}
 
-				else if (menu.equalsIgnoreCase("r"))  //si en menu principal ha elegido r - resultado,
+				//cuando elige la opción 1 se empieza partida de nivel más facil,
+				if (menu.equalsIgnoreCase("1")) 					
+				{										
+					demostrarMatriz(matriz[0]);	//muestro el labirinto inicial,	
+
+					jugarPartida(matriz[0]);//con la función jugarPartida pepito se mueve,
+
+					finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q, 
+
+					//guardo nivel de la partida,
+					nivelesDePartidas = nivelDePartidas();
+
+					//guardo resultado de la partida y nivel en un fichero,
+					guardarResultado(salida, nivelesDePartidas, resultadoDePartida); 
+
+					matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
+
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,														
+				}
+				//cuando elige opción 2 se empieza partida de dificultad media,
+				else if (menu.equalsIgnoreCase("2")) 
 				{
-					menu = mostrarMenu (menuResultado); //muestro el menu con variantes de los resultados,
+					demostrarMatriz(matriz[1]); //muestro el labirinto inicial,
 
-					while (!menu.equalsIgnoreCase("1") && !menu.equalsIgnoreCase("2") //en caso de error,
-							&& !menu.equalsIgnoreCase("q"))
-					{
-						System.out.println("La opción no existe. Elige entre 1 y 2"); //muestro un mensaje,
-						menu = mostrarMenu (menuResultado);
-					}
-					//para ver resultados por niveles,
-					if (menu.equalsIgnoreCase("1")) {
+					jugarPartida(matriz[1]); //con la función jugarPartida pepito se mueve,
 
-						//tengo que ordenar array de menor a mayor,
-					}
+					finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
 
-					//para ver resultados por orden de las partidas,
-					else if (menu.equalsIgnoreCase("2")) {
-						//mostrar resultado como hay utilizando método mostrar resultado,
-						mostrarResultado(nivelesDePartidasJugadas, resultadoDePartidasJugadas);
-						//corregir que muestra intentos quedados,
-					}
+					//guardo nivel de la partida,
+					nivelesDePartidas = nivelDePartidas();
 
-					else if (menu.equalsIgnoreCase("q")) //permite salir al menu principal,
-					{
-						menu = mostrarMenu(menuPrincipal);
-					}
+					//guardo resultado de la partida y nivel en un fichero,
+					guardarResultado(salida, nivelesDePartidas, resultadoDePartida); 
+
+					matriz = generarMatriz(); //en este caso genero desde nuevo la matriz inicial,
+
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+				}
+				//cuando elige opción 3 empieza partida de dificultad alta,
+				else if (menu.equalsIgnoreCase("3")) 
+				{
+					demostrarMatriz(matriz[2]); //muestro el labirinto inicial,
+
+					jugarPartida(matriz[2]); //con la función jugarPartida pepito se mueve,
+
+					finDePartida(); //partida se acabará cuando pepito llega al final o se elige boton q,
+
+					nivelesDePartidas = nivelDePartidas();//guardo nivel de la partida,
+
+					//escribo resultado de la partida y nivel en un fichero,
+					guardarResultado(salida, nivelesDePartidas, resultadoDePartida); 
+
+					matriz = generarMatriz(); //genero desde nuevo la matriz inicial,
+
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,					
+				}
+				else if (menu.equalsIgnoreCase("q")) //botón Q: permite salir al menu principal,
+				{ 
+					menu = mostrarMenu(menuPrincipal);
 				}
 			}
+
+			else if (menu.equalsIgnoreCase("r"))  //si en menu principal ha elegido r - resultado,
+			{
+				menu = mostrarMenu (menuResultado); //muestro el menu con variantes de los resultados,
+
+				salida.close(); // cierro el fichero donde guardamos los resultados,
+
+				while (!menu.equalsIgnoreCase("1") && !menu.equalsIgnoreCase("2") //en caso de error,
+						&& !menu.equalsIgnoreCase("q"))
+				{
+					System.out.println("La opción no existe. Elige entre 1 y 2"); //muestro un mensaje,
+					menu = mostrarMenu (menuResultado); //y muestro el menu con variantes de los resultados,
+				}
+
+				// depende de la opción elegida muestro resultados utilizando la función mostrarResultado, 
+				mostrarResultado();
+
+				/*	if (menu.equalsIgnoreCase("1")) { //para ver resultados por niveles,
+
+					//tengo que ordenar array de menor a mayor,
+					//salida.close();
+					imprimirResultado();
+
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+				}
+
+				else if (menu.equalsIgnoreCase("2")) { //para ver resultados por orden de las partidas,
+
+					//salida.close();
+					imprimirResultado(); //muestro los resultados por orden de partidas,	
+
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+				}
+
+				else if (menu.equalsIgnoreCase("q")) //permite salir al menu principal,
+				{
+					menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+				}*/
+
+			}			
 		}
 		//cuando en menu principal ha elegido q - salir, 
 		//acabo el juego y le muestro un mensaje a usuario,
@@ -176,8 +192,7 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 
 		teclado.close();
 	}
-
-
+	// -------------------------------------------------FUNCIONES------------------------------------------------------
 	//función para mostrar menu,	
 	static String mostrarMenu (String[]menu)
 	{
@@ -225,8 +240,8 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 		entrada.close();
 		return matriz;
 	}
-
-	static void demostrarMatriz(String[][]matriz) //método para mostrar matriz,
+	//método para mostrar matriz,
+	static void demostrarMatriz(String[][]matriz) 
 	{
 		for (int i = 0; i < matriz.length; i++) {
 			System.out.println(" ");
@@ -235,16 +250,16 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 			} 
 		}
 	}
-
-	static void jugarPartida(String [][]matriz) throws FileNotFoundException //metodo para mostrar pasos del pepito, 
+	//metodo para mostrar pasos del pepito, 
+	static void jugarPartida(String [][]matriz) throws FileNotFoundException
 	{			                                                             
 		do {									
 			demostrarMatriz(pepitoMover(matriz));//muestro botones del juego y laberinto con cada paso de pepito,
 			//partida continua mientras el usuario no elige la opción Q - salir o no llegará al			
 		} while (salidaPepito && !botones.equalsIgnoreCase("q")); //final del labirinto(salidaPepito = true),
 	}
-
-	static String[][]pepitoMover(String[][]matriz) throws FileNotFoundException //funcion para mover pepito,
+	//funcion para mover pepito,
+	static String[][]pepitoMover(String[][]matriz) throws FileNotFoundException 
 	{
 		//variable contador para mover pepito a un paso solo,
 		int contador = 0;
@@ -350,13 +365,14 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 		}
 		return matriz;
 	}
-	static void finDePartida() //método para mostrar fin de partida,
+	//método para mostrar fin de partida,
+	static void finDePartida() 
 	{ 
 		if (botones.equalsIgnoreCase("q")) //si ha elegido boton Q para salir,
-		{   // muestro un mensaje,			
-			System.out.println("\nHa salido de la partida");
+		{   			
+			System.out.println("\nHa salido de la partida"); // muestro un mensaje,
 
-			resultadoDePartida = "no se ha finalizada"; //resultado de partida para mostrarlo en los resultados,
+			resultadoDePartida = "no se ha finalizada."; //resultado de partida para mostrarlo en los resultados,
 
 		}
 		else if (salidaPepito == false) //si el pepito ha llegado al final de laberinto,
@@ -365,8 +381,8 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 			System.out.println("Pepito ha salido del laberinto");
 			System.out.println(" ☻ ___");
 			System.out.println("*------------------------------*");
-					//resultado de partida para mostrarlo en los resultados,			
-			resultadoDePartida = "el pepito se ha salido del laberinto";
+			//resultado de partida para mostrarlo en los resultados,			
+			resultadoDePartida = "el pepito se ha salido del laberinto.";
 		}
 	}
 	//función para guardar resultado por nivel !!!(no acabada),
@@ -377,7 +393,7 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 			nivelesDePartidas = "1";			
 		}
 		else if (menu.equalsIgnoreCase("2")) {
-			
+
 			nivelesDePartidas = "2";
 		}
 		else if (menu.equalsIgnoreCase("3")) {
@@ -387,40 +403,98 @@ public class LaberintoProyectoUF1_UF2_UF3 {
 		else {
 			nivelesDePartidas = "No ha jugado esta partida"; //no funciona,
 		}								
-
 		return nivelesDePartidas;
 	}
-	//método para mostrar resultados de partidas,
-	static void mostrarResultado(String [] array, String [] array2) {
+	//método para mostrar resultados de partidas desde array,
+	/*static void mostrarResultado(String [] array, String [] array2) {
 		for (int i = 0; i < array.length; i++) {		
 			System.out.print ("Partida " + (i+1) + ". Nivel del juego: " + array[i] + ". ");
 			System.out.println("Resultado: " + array2[i]);						
 		}
-	}
-	/*
-	static String botonesAW(String [][] matriz) 
-	{
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = 0; j < matriz[i].length; j++) {
+	}*/
 
-				if ((j-1) >= 0 && (matriz[i][j-1].equalsIgnoreCase(vacia))) 
-				{
-					matriz[i][j-1] = pepito;
-					System.out.println("a");
-				}	
-				else if ((j-1) >= 0 && (matriz[i][j-1].equalsIgnoreCase(finJuego))) 
-				{
-					matriz[i][j-1] = pepito;
-					salidaPepito = false;
-				}
-				else 
-				{
-					matriz[i][j] = pepito;
-					System.out.println("za");								
-				}	
+	//método para escribir resultados en un archivo.txt,
+	static void guardarResultado(PrintWriter salida, String nivelesDePartidas, String resultadoDePartida) {
+
+		salida.println("Nivel del juego: " + nivelesDePartidas + ". ");
+		salida.println("Resultado: " + resultadoDePartida);							
+	}
+
+	//mètodo para leer y imprimir datos del fichero en apartado resultados,
+	static void imprimirResultado(String menu) throws FileNotFoundException {
+		Scanner entrada = new Scanner(new File("resultados.txt"));
+		String resultado;
+		ArrayList<String> resultadoArray = new ArrayList<String>();
+
+		while (entrada.hasNextLine()) {	
+
+			resultado = entrada.nextLine().concat(entrada.nextLine());
+			System.out.println("string: " + resultado);
+			
+			resultadoArray.add(resultado);
+			
+			if (resultado.contains("1")) {
+				resultadoArray.set(1, resultadoArray.get(0));
+				resultadoArray.set(0, resultado);
+			}
+			else if (resultado.contains("2") && !resultadoArray.get(0).contains("1")) {
+				resultadoArray.set(1, resultadoArray.get(0));
+				resultadoArray.set(0, resultado);
+			}
+
+		}
+
+
+		if (menu.equalsIgnoreCase("1")) {
+
+			for (int i = 0; i < resultadoArray.size(); i++) {
+				System.out.println(resultadoArray.get(i));
+			}	
+
+		}
+		else if (menu.equalsIgnoreCase("2")) {
+			for (int i = 0; i < resultadoArray.size(); i++) {
+				System.out.println(resultadoArray.get(i));
 			}
 		}
-		return botones;
 
+		entrada.close();
+	}
+
+
+
+	//método que muestro los resultados depende de la opción elegida,
+
+	static void mostrarResultado() throws FileNotFoundException {
+		if (menu.equalsIgnoreCase("1")) { //para ver resultados por niveles,
+
+			//tengo que ordenar array de menor a mayor,
+			//salida.close();
+			imprimirResultado(menu);
+
+			menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+		}
+
+		else if (menu.equalsIgnoreCase("2")) { //para ver resultados por orden de las partidas,
+
+			//salida.close();
+			imprimirResultado(menu); //muestro los resultados por orden de partidas,	
+
+			menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+		}
+
+		else if (menu.equalsIgnoreCase("q")) //permite salir al menu principal,
+		{
+			menu = mostrarMenu(menuPrincipal); //y muestro al usuario el menu inicial,
+		}
+	}
+
+
+	//!!!!!!!!!!!!!!!!hacer funciones para comprobación de menus y añadirlos donde nesecita,
+	
+/*	while (!menu.equalsIgnoreCase("j") && !menu.equalsIgnoreCase("r") && !menu.equalsIgnoreCase("q")) {
+		System.out.println("Por favor, elige la opción correcta");
+		menu = mostrarMenu(menuPrincipal);
 	}*/
 }
+
