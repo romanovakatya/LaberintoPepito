@@ -1,2 +1,2 @@
 # LaberintoPepito
-Proyecto de Java. Juego Laberinto
+Proyecto de Java de primer curso DAW. Juego Laberinto
